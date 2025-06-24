@@ -1,0 +1,202 @@
+groups:
+  - name: service_alerts
+    interval: 30s
+    rules:
+      # Service Down Alert
+      - alert: ServiceDown
+        expr: up == 0
+        for: 2m
+        labels:
+          severity: critical
+          team: platform
+        annotations:
+          summary: "Service {{ $labels.job }} is down"
+          description: "{{ $labels.job }} on {{ $labels.instance }} has been down for more than 2 minutes."
+
+      # High CPU Usage
+      - alert: HighCPUUsage
+        expr: rate(process_cpu_seconds_total[5m]) * 100 > 80
+        for: 5m
+        labels:
+          severity: warning
+          team: platform
+        annotations:
+          summary: "High CPU usage on {{ $labels.job }}"
+          description: "{{ $labels.job }} on {{ $labels.instance }} has CPU usage above 80% (current value: {{ $value }}%)"
+
+      # High Memory Usage
+      - alert: HighMemoryUsage
+        expr: (process_resident_memory_bytes / 1024 / 1024) > 1000
+        for: 5m
+        labels:
+          severity: warning
+          team: platform
+        annotations:
+          summary: "High memory usage on {{ $labels.job }}"
+          description: "{{ $labels.job }} on {{ $labels.instance }} is using more than 1GB of memory (current value: {{ $value }}MB)"
+
+  - name: api_gateway_alerts
+    interval: 30s
+    rules:
+      # High Error Rate
+      - alert: HighErrorRate
+        expr: sum(rate(kong_http_status{status=~"5.."}[5m])) by (service) / sum(rate(kong_http_status[5m])) by (service) > 0.05
+        for: 5m
+        labels:
+          severity: critical
+          team: api
+        annotations:
+          summary: "High error rate for service {{ $labels.service }}"
+          description: "Service {{ $labels.service }} has error rate above 5% (current value: {{ $value }}%)"
+
+      # High Latency
+      - alert: HighLatency
+        expr: histogram_quantile(0.95, sum(rate(kong_latency_bucket[5m])) by (service, le)) > 1000
+        for: 5m
+        labels:
+          severity: warning
+          team: api
+        annotations:
+          summary: "High latency for service {{ $labels.service }}"
+          description: "95th percentile latency for {{ $labels.service }} is above 1 second (current value: {{ $value }}ms)"
+
+      # Rate Limiting Triggered
+      - alert: RateLimitingTriggered
+        expr: sum(rate(kong_http_status{status="429"}[5m])) by (service) > 10
+        for: 2m
+        labels:
+          severity: warning
+          team: api
+        annotations:
+          summary: "Rate limiting triggered for {{ $labels.service }}"
+          description: "Service {{ $labels.service }} is rate limiting more than 10 requests per second"
+
+  - name: database_alerts
+    interval: 30s
+    rules:
+      # MongoDB Connection Issues
+      - alert: MongoDBDown
+        expr: mongodb_up == 0
+        for: 2m
+        labels:
+          severity: critical
+          team: database
+        annotations:
+          summary: "MongoDB is down"
+          description: "MongoDB instance {{ $labels.instance }} is not responding"
+
+      # MongoDB High Connection Count
+      - alert: MongoDBHighConnections
+        expr: mongodb_connections{state="current"} > 1000
+        for: 5m
+        labels:
+          severity: warning
+          team: database
+        annotations:
+          summary: "MongoDB high connection count"
+          description: "MongoDB has {{ $value }} active connections"
+
+      # PostgreSQL Down
+      - alert: PostgreSQLDown
+        expr: pg_up == 0
+        for: 2m
+        labels:
+          severity: critical
+          team: database
+        annotations:
+          summary: "PostgreSQL is down"
+          description: "PostgreSQL instance {{ $labels.instance }} is not responding"
+
+      # Redis Down
+      - alert: RedisDown
+        expr: redis_up == 0
+        for: 2m
+        labels:
+          severity: critical
+          team: database
+        annotations:
+          summary: "Redis is down"
+          description: "Redis instance {{ $labels.instance }} is not responding"
+
+      # Elasticsearch Cluster Health
+      - alert: ElasticsearchClusterRed
+        expr: elasticsearch_cluster_health_status{color="red"} == 1
+        for: 2m
+        labels:
+          severity: critical
+          team: database
+        annotations:
+          summary: "Elasticsearch cluster is in RED state"
+          description: "Elasticsearch cluster health is RED, immediate attention required"
+
+  - name: container_alerts
+    interval: 30s
+    rules:
+      # Container Restart
+      - alert: ContainerRestart
+        expr: rate(container_restart_count[5m]) > 0
+        for: 2m
+        labels:
+          severity: warning
+          team: platform
+        annotations:
+          summary: "Container {{ $labels.name }} is restarting"
+          description: "Container {{ $labels.name }} has restarted {{ $value }} times in the last 5 minutes"
+
+      # Container CPU Throttling
+      - alert: ContainerCPUThrottling
+        expr: rate(container_cpu_cfs_throttled_seconds_total[5m]) > 0.1
+        for: 5m
+        labels:
+          severity: warning
+          team: platform
+        annotations:
+          summary: "Container {{ $labels.name }} CPU throttling"
+          description: "Container {{ $labels.name }} CPU is being throttled"
+
+      # Container Memory Usage
+      - alert: ContainerHighMemoryUsage
+        expr: (container_memory_usage_bytes / container_spec_memory_limit_bytes) > 0.9
+        for: 5m
+        labels:
+          severity: warning
+          team: platform
+        annotations:
+          summary: "Container {{ $labels.name }} high memory usage"
+          description: "Container {{ $labels.name }} memory usage is above 90% of limit"
+
+  - name: business_alerts
+    interval: 30s
+    rules:
+      # Low Order Rate
+      - alert: LowOrderRate
+        expr: sum(rate(shopping_cart_checkout_total[5m])) < 0.1
+        for: 30m
+        labels:
+          severity: warning
+          team: business
+        annotations:
+          summary: "Low order rate detected"
+          description: "Order rate has dropped below 0.1 orders per second for 30 minutes"
+
+      # Search Service Degradation
+      - alert: SearchServiceDegradation
+        expr: histogram_quantile(0.95, sum(rate(search_request_duration_seconds_bucket[5m])) by (le)) > 2
+        for: 10m
+        labels:
+          severity: warning
+          team: search
+        annotations:
+          summary: "Search service degradation"
+          description: "95th percentile search latency is above 2 seconds"
+
+      # Authentication Failures
+      - alert: HighAuthenticationFailures
+        expr: sum(rate(auth_login_failures_total[5m])) > 1
+        for: 5m
+        labels:
+          severity: warning
+          team: security
+        annotations:
+          summary: "High authentication failure rate"
+          description: "More than 1 authentication failure per second detected"
