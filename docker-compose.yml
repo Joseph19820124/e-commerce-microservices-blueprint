@@ -1,0 +1,128 @@
+version: '3.8'
+
+services:
+  # Databases
+  mongodb:
+    image: mongo:7.0
+    container_name: ecommerce-mongodb
+    restart: unless-stopped
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: password123
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+    networks:
+      - ecommerce-network
+
+  redis:
+    image: redis:7.2-alpine
+    container_name: ecommerce-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - ecommerce-network
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.10.2
+    container_name: ecommerce-elasticsearch
+    restart: unless-stopped
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    volumes:
+      - elasticsearch_data:/usr/share/elasticsearch/data
+    networks:
+      - ecommerce-network
+
+  # Microservices
+  product-catalog:
+    build: ./services/product-catalog
+    container_name: product-catalog-service
+    restart: unless-stopped
+    environment:
+      PORT: 3001
+      MONGODB_URI: mongodb://admin:password123@mongodb:27017/product-catalog?authSource=admin
+      NODE_ENV: development
+    ports:
+      - "3001:3001"
+    depends_on:
+      - mongodb
+    volumes:
+      - ./services/product-catalog/uploads:/app/uploads
+    networks:
+      - ecommerce-network
+
+  user-profile:
+    build: ./services/user-profile
+    container_name: user-profile-service
+    restart: unless-stopped
+    environment:
+      PORT: 3002
+      MONGODB_URI: mongodb://admin:password123@mongodb:27017/user-profile?authSource=admin
+      NODE_ENV: development
+      JWT_SECRET: your-super-secret-jwt-key-change-this-in-production
+      JWT_EXPIRE: 7d
+      BCRYPT_ROUNDS: 10
+    ports:
+      - "3002:3002"
+    depends_on:
+      - mongodb
+    networks:
+      - ecommerce-network
+
+  shopping-cart:
+    build: ./services/shopping-cart
+    container_name: shopping-cart-service
+    restart: unless-stopped
+    environment:
+      PORT: 3003
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      NODE_ENV: development
+      PRODUCT_SERVICE_URL: http://product-catalog:3001
+      USER_SERVICE_URL: http://user-profile:3002
+      CART_EXPIRY: 86400
+    ports:
+      - "3003:3003"
+    depends_on:
+      - redis
+      - product-catalog
+      - user-profile
+    networks:
+      - ecommerce-network
+
+  search:
+    build: ./services/search
+    container_name: search-service
+    restart: unless-stopped
+    environment:
+      PORT: 3004
+      ELASTICSEARCH_URL: http://elasticsearch:9200
+      NODE_ENV: development
+      PRODUCT_SERVICE_URL: http://product-catalog:3001
+      INDEX_NAME: products
+    ports:
+      - "3004:3004"
+    depends_on:
+      - elasticsearch
+      - product-catalog
+    networks:
+      - ecommerce-network
+
+volumes:
+  mongodb_data:
+  redis_data:
+  elasticsearch_data:
+
+networks:
+  ecommerce-network:
+    driver: bridge
