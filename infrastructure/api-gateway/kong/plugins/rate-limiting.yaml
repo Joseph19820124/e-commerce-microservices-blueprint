@@ -1,0 +1,119 @@
+# Rate Limiting Plugin Configuration
+
+# Global rate limiting
+global_rate_limit:
+  name: rate-limiting
+  config:
+    second: 50
+    minute: 1000
+    hour: 10000
+    day: 100000
+    policy: redis
+    fault_tolerant: true
+    redis_host: redis
+    redis_port: 6379
+    redis_password: null
+    redis_timeout: 2000
+    redis_database: 1
+    hide_client_headers: false
+
+# Per-service rate limits
+service_rate_limits:
+  # Product Catalog Service - Higher limits for browsing
+  product-catalog-service:
+    name: rate-limiting
+    service: product-catalog-service
+    config:
+      second: 100
+      minute: 2000
+      policy: local
+      fault_tolerant: true
+
+  # User Profile Service - Moderate limits
+  user-profile-service:
+    name: rate-limiting
+    service: user-profile-service
+    config:
+      second: 20
+      minute: 500
+      policy: local
+      fault_tolerant: true
+
+  # Shopping Cart Service - Lower limits to prevent abuse
+  shopping-cart-service:
+    name: rate-limiting
+    service: shopping-cart-service
+    config:
+      second: 30
+      minute: 600
+      policy: local
+      fault_tolerant: true
+
+  # Search Service - Moderate limits to prevent scraping
+  search-service:
+    name: rate-limiting
+    service: search-service
+    config:
+      second: 50
+      minute: 1000
+      policy: local
+      fault_tolerant: true
+
+# Per-route rate limits
+route_rate_limits:
+  # Authentication endpoints - Strict limits
+  auth-login:
+    name: rate-limiting
+    route: auth-login-route
+    config:
+      second: 5
+      minute: 20
+      hour: 100
+      policy: local
+      fault_tolerant: true
+      limit_by: ip
+      header_name: X-Real-IP
+
+  # Registration endpoint - Very strict limits
+  auth-register:
+    name: rate-limiting
+    route: auth-register-route
+    config:
+      minute: 5
+      hour: 20
+      day: 50
+      policy: local
+      fault_tolerant: true
+      limit_by: ip
+
+# Per-consumer rate limits
+consumer_rate_limits:
+  # Frontend application
+  frontend-app:
+    name: rate-limiting
+    consumer: frontend-app
+    config:
+      second: 200
+      minute: 5000
+      hour: 50000
+      policy: local
+
+  # Mobile application
+  mobile-app:
+    name: rate-limiting
+    consumer: mobile-app
+    config:
+      second: 150
+      minute: 3000
+      hour: 30000
+      policy: local
+
+  # Admin users - Higher limits
+  admin-user:
+    name: rate-limiting
+    consumer: admin-user
+    config:
+      second: 500
+      minute: 10000
+      hour: 100000
+      policy: local
