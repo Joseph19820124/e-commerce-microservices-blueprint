@@ -1,0 +1,337 @@
+[
+  {
+    "name": "iPhone 13 Pro",
+    "description": "Latest iPhone with A15 Bionic chip, Pro camera system, and Super Retina XDR display",
+    "price": 999.99,
+    "category": "Electronics",
+    "subcategory": "Smartphones",
+    "brand": "Apple",
+    "sku": "IPHONE13PRO-128GB-BLUE",
+    "images": [
+      "https://example.com/images/iphone13pro-blue-1.jpg",
+      "https://example.com/images/iphone13pro-blue-2.jpg"
+    ],
+    "stock": 50,
+    "isActive": true,
+    "features": [
+      "5G capability",
+      "A15 Bionic chip",
+      "Pro camera system",
+      "Face ID",
+      "MagSafe compatible"
+    ],
+    "specifications": {
+      "storage": "128GB",
+      "color": "Sierra Blue",
+      "weight": "204g",
+      "dimensions": "146.7 x 71.5 x 7.65 mm",
+      "display": "6.1-inch Super Retina XDR",
+      "battery": "Up to 22 hours video playback"
+    },
+    "ratings": {
+      "average": 4.5,
+      "count": 128
+    }
+  },
+  {
+    "name": "Samsung Galaxy S21 Ultra",
+    "description": "Premium Android smartphone with 108MP camera and S Pen support",
+    "price": 899.99,
+    "category": "Electronics",
+    "subcategory": "Smartphones",
+    "brand": "Samsung",
+    "sku": "GALAXY-S21-ULTRA-256GB",
+    "images": [
+      "https://example.com/images/galaxy-s21-ultra-1.jpg",
+      "https://example.com/images/galaxy-s21-ultra-2.jpg"
+    ],
+    "stock": 35,
+    "isActive": true,
+    "features": [
+      "108MP Camera",
+      "S Pen support",
+      "8K Video recording",
+      "5G ready",
+      "120Hz display"
+    ],
+    "specifications": {
+      "storage": "256GB",
+      "color": "Phantom Black",
+      "weight": "228g",
+      "dimensions": "165.1 x 75.6 x 8.9 mm",
+      "display": "6.8-inch Dynamic AMOLED 2X",
+      "battery": "5000mAh"
+    },
+    "ratings": {
+      "average": 4.3,
+      "count": 95
+    }
+  },
+  {
+    "name": "MacBook Pro 14-inch",
+    "description": "Powerful laptop with M1 Pro chip for professional workflows",
+    "price": 1999.99,
+    "category": "Electronics",
+    "subcategory": "Laptops",
+    "brand": "Apple",
+    "sku": "MBP14-M1PRO-512GB",
+    "images": [
+      "https://example.com/images/macbook-pro-14-1.jpg",
+      "https://example.com/images/macbook-pro-14-2.jpg"
+    ],
+    "stock": 25,
+    "isActive": true,
+    "features": [
+      "M1 Pro chip",
+      "14-inch Liquid Retina XDR display",
+      "Up to 17 hours battery life",
+      "1080p FaceTime HD camera",
+      "Six-speaker sound system"
+    ],
+    "specifications": {
+      "processor": "Apple M1 Pro",
+      "memory": "16GB",
+      "storage": "512GB SSD",
+      "display": "14.2-inch Liquid Retina XDR",
+      "weight": "1.6kg",
+      "color": "Space Gray"
+    },
+    "ratings": {
+      "average": 4.7,
+      "count": 67
+    }
+  },
+  {
+    "name": "Sony WH-1000XM4",
+    "description": "Industry-leading noise canceling wireless headphones",
+    "price": 349.99,
+    "category": "Electronics",
+    "subcategory": "Audio",
+    "brand": "Sony",
+    "sku": "SONY-WH1000XM4-BLACK",
+    "images": [
+      "https://example.com/images/sony-wh1000xm4-1.jpg",
+      "https://example.com/images/sony-wh1000xm4-2.jpg"
+    ],
+    "stock": 75,
+    "isActive": true,
+    "features": [
+      "Industry-leading noise canceling",
+      "30-hour battery life",
+      "Touch Sensor controls",
+      "Speak-to-chat technology",
+      "Wireless charging case"
+    ],
+    "specifications": {
+      "battery": "30 hours",
+      "charging": "USB-C and wireless",
+      "weight": "254g",
+      "color": "Black",
+      "connectivity": "Bluetooth 5.0"
+    },
+    "ratings": {
+      "average": 4.4,
+      "count": 203
+    }
+  },
+  {
+    "name": "Nike Air Max 90",
+    "description": "Classic running shoes with Max Air cushioning",
+    "price": 129.99,
+    "category": "Fashion",
+    "subcategory": "Shoes",
+    "brand": "Nike",
+    "sku": "NIKE-AIRMAX90-WHITE-10",
+    "images": [
+      "https://example.com/images/nike-airmax90-white-1.jpg",
+      "https://example.com/images/nike-airmax90-white-2.jpg"
+    ],
+    "stock": 120,
+    "isActive": true,
+    "features": [
+      "Max Air cushioning",
+      "Rubber Waffle outsole",
+      "Leather and textile upper",
+      "Classic design",
+      "Available in multiple colors"
+    ],
+    "specifications": {
+      "size": "10 US",
+      "color": "White/Black",
+      "material": "Leather and synthetic",
+      "sole": "Rubber",
+      "weight": "350g"
+    },
+    "ratings": {
+      "average": 4.2,
+      "count": 89
+    }
+  },
+  {
+    "name": "Levi's 501 Original Jeans",
+    "description": "The original straight fit jeans with iconic styling",
+    "price": 79.99,
+    "category": "Fashion",
+    "subcategory": "Clothing",
+    "brand": "Levi's",
+    "sku": "LEVIS-501-BLUE-32X34",
+    "images": [
+      "https://example.com/images/levis-501-blue-1.jpg",
+      "https://example.com/images/levis-501-blue-2.jpg"
+    ],
+    "stock": 85,
+    "isActive": true,
+    "features": [
+      "Original straight fit",
+      "Button fly",
+      "100% cotton denim",
+      "Five-pocket styling",
+      "Machine washable"
+    ],
+    "specifications": {
+      "size": "32W x 34L",
+      "color": "Original Blue",
+      "material": "100% Cotton",
+      "fit": "Straight",
+      "rise": "Mid-rise"
+    },
+    "ratings": {
+      "average": 4.1,
+      "count": 156
+    }
+  },
+  {
+    "name": "The Great Gatsby",
+    "description": "Classic American novel by F. Scott Fitzgerald",
+    "price": 12.99,
+    "category": "Books",
+    "subcategory": "Fiction",
+    "brand": "Scribner",
+    "sku": "BOOK-GATSBY-PAPERBACK",
+    "images": [
+      "https://example.com/images/great-gatsby-cover.jpg"
+    ],
+    "stock": 200,
+    "isActive": true,
+    "features": [
+      "Classic literature",
+      "180 pages",
+      "Paperback edition",
+      "English language",
+      "ISBN included"
+    ],
+    "specifications": {
+      "author": "F. Scott Fitzgerald",
+      "publisher": "Scribner",
+      "pages": 180,
+      "language": "English",
+      "format": "Paperback",
+      "isbn": "978-0-7432-7356-5"
+    },
+    "ratings": {
+      "average": 4.0,
+      "count": 234
+    }
+  },
+  {
+    "name": "Instant Pot Duo 7-in-1",
+    "description": "Multi-functional electric pressure cooker",
+    "price": 79.99,
+    "category": "Home & Kitchen",
+    "subcategory": "Appliances",
+    "brand": "Instant Pot",
+    "sku": "INSTANTPOT-DUO-6QT",
+    "images": [
+      "https://example.com/images/instant-pot-duo-1.jpg",
+      "https://example.com/images/instant-pot-duo-2.jpg"
+    ],
+    "stock": 45,
+    "isActive": true,
+    "features": [
+      "7-in-1 functionality",
+      "6-quart capacity",
+      "14 smart programs",
+      "Stainless steel inner pot",
+      "Safety features"
+    ],
+    "specifications": {
+      "capacity": "6 quart",
+      "functions": "Pressure cooker, slow cooker, rice cooker, steamer, sauté, yogurt maker, warmer",
+      "material": "Stainless steel",
+      "power": "1000W",
+      "dimensions": "13.0 x 12.5 x 12.5 inches"
+    },
+    "ratings": {
+      "average": 4.6,
+      "count": 312
+    }
+  },
+  {
+    "name": "PlayStation 5",
+    "description": "Next-generation gaming console with ultra-high speed SSD",
+    "price": 499.99,
+    "category": "Electronics",
+    "subcategory": "Gaming",
+    "brand": "Sony",
+    "sku": "PS5-CONSOLE-STD",
+    "images": [
+      "https://example.com/images/ps5-console-1.jpg",
+      "https://example.com/images/ps5-console-2.jpg"
+    ],
+    "stock": 15,
+    "isActive": true,
+    "features": [
+      "Ultra-high speed SSD",
+      "Ray tracing support",
+      "4K gaming",
+      "3D Audio",
+      "DualSense wireless controller"
+    ],
+    "specifications": {
+      "cpu": "AMD Zen 2-based CPU",
+      "gpu": "AMD RDNA 2-based GPU",
+      "memory": "16GB GDDR6",
+      "storage": "825GB SSD",
+      "resolution": "Up to 4K",
+      "dimensions": "390mm x 104mm x 260mm"
+    },
+    "ratings": {
+      "average": 4.8,
+      "count": 89
+    }
+  },
+  {
+    "name": "Fitbit Versa 3",
+    "description": "Health and fitness smartwatch with GPS",
+    "price": 199.99,
+    "category": "Electronics",
+    "subcategory": "Wearables",
+    "brand": "Fitbit",
+    "sku": "FITBIT-VERSA3-BLACK",
+    "images": [
+      "https://example.com/images/fitbit-versa3-1.jpg",
+      "https://example.com/images/fitbit-versa3-2.jpg"
+    ],
+    "stock": 60,
+    "isActive": true,
+    "features": [
+      "Built-in GPS",
+      "6+ day battery life",
+      "Music storage",
+      "Voice assistant",
+      "24/7 heart rate tracking"
+    ],
+    "specifications": {
+      "battery": "6+ days",
+      "water_resistance": "50 meters",
+      "display": "AMOLED",
+      "connectivity": "Wi-Fi, Bluetooth",
+      "sensors": "Heart rate, GPS, accelerometer",
+      "color": "Black/Carbon"
+    },
+    "ratings": {
+      "average": 4.3,
+      "count": 178
+    }
+  }
+]

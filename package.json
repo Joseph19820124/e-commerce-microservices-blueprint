@@ -1,0 +1,53 @@
+{
+  "name": "e-commerce-microservices-blueprint",
+  "version": "1.0.0",
+  "description": "Modern e-commerce platform built with microservices architecture",
+  "private": true,
+  "scripts": {
+    "install:all": "npm run install:services && npm run install:frontend",
+    "install:services": "cd services/product-catalog && npm install && cd ../user-profile && npm install && cd ../shopping-cart && npm install && cd ../search && npm install",
+    "install:frontend": "cd frontend/react-store-ui && npm install",
+    "test": "npm run test:services && npm run test:frontend",
+    "test:services": "npm run test:product-catalog && npm run test:user-profile && npm run test:shopping-cart && npm run test:search",
+    "test:product-catalog": "cd services/product-catalog && npm test",
+    "test:user-profile": "cd services/user-profile && npm test",
+    "test:shopping-cart": "cd services/shopping-cart && npm test",
+    "test:search": "cd services/search && npm test",
+    "test:frontend": "cd frontend/react-store-ui && npm test -- --watchAll=false",
+    "test:coverage": "npm run test:coverage:services && npm run test:coverage:frontend",
+    "test:coverage:services": "npm run test:coverage:product-catalog && npm run test:coverage:user-profile && npm run test:coverage:shopping-cart && npm run test:coverage:search",
+    "test:coverage:product-catalog": "cd services/product-catalog && npm test -- --coverage",
+    "test:coverage:user-profile": "cd services/user-profile && npm test -- --coverage",
+    "test:coverage:shopping-cart": "cd services/shopping-cart && npm test -- --coverage",
+    "test:coverage:search": "cd services/search && npm test -- --coverage",
+    "test:coverage:frontend": "cd frontend/react-store-ui && npm run test:coverage",
+    "dev": "docker-compose up -d",
+    "dev:build": "docker-compose up --build -d",
+    "stop": "docker-compose down",
+    "clean": "docker-compose down -v --remove-orphans"
+  },
+  "workspaces": [
+    "services/*",
+    "frontend/*"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-username/e-commerce-microservices-blueprint.git"
+  },
+  "keywords": [
+    "microservices",
+    "e-commerce",
+    "nodejs",
+    "react",
+    "mongodb",
+    "redis",
+    "elasticsearch",
+    "docker"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "cross-env": "^7.0.3"
+  }
+}

@@ -1,0 +1,119 @@
+apiVersion: v2
+name: ecommerce-microservices
+description: A Helm chart for E-commerce Microservices Platform
+type: application
+version: 1.0.0
+appVersion: "1.0.0"
+home: https://github.com/Joseph19820124/e-commerce-microservices-blueprint
+sources:
+  - https://github.com/Joseph19820124/e-commerce-microservices-blueprint
+maintainers:
+  - name: Platform Team
+    email: platform@ecommerce.com
+keywords:
+  - ecommerce
+  - microservices
+  - node.js
+  - react
+  - mongodb
+  - redis
+  - elasticsearch
+
+dependencies:
+  # Microservices
+  - name: product-catalog
+    version: "1.0.0"
+    repository: "file://../charts/product-catalog"
+    condition: productCatalog.enabled
+  
+  - name: user-profile
+    version: "1.0.0"
+    repository: "file://../charts/user-profile"
+    condition: userProfile.enabled
+  
+  - name: shopping-cart
+    version: "1.0.0"
+    repository: "file://../charts/shopping-cart"
+    condition: shoppingCart.enabled
+  
+  - name: search
+    version: "1.0.0"
+    repository: "file://../charts/search"
+    condition: search.enabled
+  
+  - name: frontend
+    version: "1.0.0"
+    repository: "file://../charts/frontend"
+    condition: frontend.enabled
+  
+  - name: api-gateway
+    version: "1.0.0"
+    repository: "file://../charts/api-gateway"
+    condition: apiGateway.enabled
+
+  # Databases
+  - name: mongodb
+    version: "13.15.1"
+    repository: "https://charts.bitnami.com/bitnami"
+    condition: mongodb.enabled
+    
+  - name: redis
+    version: "17.11.3"
+    repository: "https://charts.bitnami.com/bitnami"
+    condition: redis.enabled
+    
+  - name: postgresql
+    version: "12.6.5"
+    repository: "https://charts.bitnami.com/bitnami"
+    condition: postgresql.enabled
+    
+  - name: elasticsearch
+    version: "19.10.0"
+    repository: "https://charts.bitnami.com/bitnami"
+    condition: elasticsearch.enabled
+
+  # Monitoring
+  - name: prometheus
+    version: "23.1.0"
+    repository: "https://prometheus-community.github.io/helm-charts"
+    alias: kube-prometheus-stack
+    condition: monitoring.prometheus.enabled
+    
+  - name: grafana
+    version: "6.57.4"
+    repository: "https://grafana.github.io/helm-charts"
+    condition: monitoring.grafana.enabled
+
+  # Logging
+  - name: elasticsearch
+    version: "8.5.1"
+    repository: "https://helm.elastic.co"
+    alias: logging-elasticsearch
+    condition: logging.elasticsearch.enabled
+    
+  - name: logstash
+    version: "8.5.1"
+    repository: "https://helm.elastic.co"
+    condition: logging.logstash.enabled
+    
+  - name: kibana
+    version: "8.5.1"
+    repository: "https://helm.elastic.co"
+    condition: logging.kibana.enabled
+
+  # Ingress
+  - name: nginx-ingress
+    version: "4.7.1"
+    repository: "https://kubernetes.github.io/ingress-nginx"
+    alias: ingress-nginx
+    condition: ingress.nginx.enabled
+
+  # Certificate Management
+  - name: cert-manager
+    version: "1.12.2"
+    repository: "https://charts.jetstack.io"
+    condition: certManager.enabled
+
+annotations:
+  category: Application Platform
+  licenses: MIT
